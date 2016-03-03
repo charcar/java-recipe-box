@@ -27,6 +27,17 @@ public class App {
       model.put("template", "templates/ingredients.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    post("/ingredients/add", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String name = request.queryParams("name");
+      Ingredient newIngredient = new Ingredient(name);
+      newIngredient.save();
+      List<Ingredient> ingredients = Ingredient.all();
+      model.put("ingredients", ingredients);
+      model.put("template", "templates/ingredients.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 
 }

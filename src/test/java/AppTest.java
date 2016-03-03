@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fluentlenium.core.filter.FilterConstructor.*;
 
 public class AppTest extends FluentTest {
   public WebDriver webDriver = new HtmlUnitDriver();
@@ -37,6 +38,14 @@ public class AppTest extends FluentTest {
     newGreedy.save();
     goTo("http://localhost:4567/ingredients");
     assertThat(pageSource()).contains("Apple");
+  }
+
+  @Test
+  public void addedIngredientsAppearOnPage() {
+    goTo("http://localhost:4567/ingredients");
+    fill("#name").with("Cherry");
+    submit(".btn-success");
+    assertThat(pageSource()).contains("Cherry");
   }
 
 }

@@ -4,8 +4,14 @@
   <ul>
   #foreach ($ingredient in $ingredients)
     <li>$ingredient.getName()</li>
-  </ul>
   #end
+  </ul>
 #else
   <p>Looks like you don't have any ingredients yet!</p>
 #end
+
+<form action="/ingredients/add" method="post">
+  <label for="name">Ingredient Name</label>
+  <input name="name" id="name" type="text" required>
+  <button type="submit" class="btn btn-success">Add Ingredient</button>
+</form>
