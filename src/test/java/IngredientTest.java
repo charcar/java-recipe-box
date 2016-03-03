@@ -9,15 +9,15 @@ public class IngredientTest {
   public DatabaseRule database = new DatabaseRule();
 
   @Test
-  public void tag_instantiatesCorrectly_true() {
-    Ingredient newIngredient = new Ingredient("Italian");
+  public void ingredient_instantiatesCorrectly_true() {
+    Ingredient newIngredient = new Ingredient("Ground beef");
     assertTrue(newIngredient instanceof Ingredient);
   }
 
   @Test
   public void getName_returnsName_string() {
-    Ingredient newIngredient = new Ingredient("Italian");
-    assertEquals("Italian", newIngredient.getName());
+    Ingredient newIngredient = new Ingredient("Ground beef");
+    assertEquals("Ground beef", newIngredient.getName());
   }
 
   @Test
@@ -27,44 +27,44 @@ public class IngredientTest {
 
   @Test
   public void equals_returnsTrueIfIngredientsAreTheSame() {
-    Ingredient newIngredient = new Ingredient("Breakfast");
-    Ingredient newIngredient2 = new Ingredient("Breakfast");
+    Ingredient newIngredient = new Ingredient("Eggs");
+    Ingredient newIngredient2 = new Ingredient("Eggs");
     assertTrue(newIngredient.equals(newIngredient2));
   }
 
   @Test
   public void save_savesIngredientToDatabase_true() {
-    Ingredient newIngredient = new Ingredient("Lunch");
+    Ingredient newIngredient = new Ingredient("Potato");
     newIngredient.save();
     assertTrue(newIngredient.all().contains(newIngredient));
   }
 
   @Test
   public void getId_returnsId() {
-    Ingredient newIngredient = new Ingredient("lunch");
+    Ingredient newIngredient = new Ingredient("Potato");
     newIngredient.save();
     Ingredient savedIngredient = Ingredient.find(newIngredient.getId());
     assertTrue(newIngredient.getId() == savedIngredient.getId());
   }
 
   @Test
-  public void find_returnsTagFromDatabase() {
-    Ingredient newIngredient = new Ingredient("Italian");
+  public void find_returnsIngredientFromDatabase() {
+    Ingredient newIngredient = new Ingredient("Ground beef");
     newIngredient.save();
     assertEquals(newIngredient, Ingredient.find(newIngredient.getId()));
   }
 
   @Test
   public void update_updatesIngredientProperties() {
-    Ingredient newIngredient = new Ingredient("Bulgarian");
+    Ingredient newIngredient = new Ingredient("Bulgarian Cheese");
     newIngredient.save();
-    newIngredient.update("Romainian");
-    assertEquals("Romainian", newIngredient.getName());
+    newIngredient.update("Romaine Lettuce");
+    assertEquals("Romaine Lettuce", newIngredient.getName());
   }
 
   @Test
   public void delete_removesIngredientFromDatabase_true() {
-    Ingredient newIngredient = new Ingredient("Latvian");
+    Ingredient newIngredient = new Ingredient("Ricolas");
     newIngredient.save();
     assertTrue(Ingredient.all().contains(newIngredient));
     newIngredient.delete();
