@@ -72,9 +72,14 @@ public class RecipeTest {
   public void delete_removesIngredientFromDatabase_true() {
     Recipe newRecipe = new Recipe("Latvian", "cook well");
     newRecipe.save();
+    Ingredient newGreedy = new Ingredient("Mozza");
+    newGreedy.save();
+    newRecipe.addIngredient(newGreedy);
     assertTrue(Recipe.all().contains(newRecipe));
+    assertTrue(newGreedy.getRecipes().contains(newRecipe));
     newRecipe.deleteRecipe();
     assertFalse(Recipe.all().contains(newRecipe));
+    assertFalse(newGreedy.getRecipes().contains(newRecipe));
   }
 
 }

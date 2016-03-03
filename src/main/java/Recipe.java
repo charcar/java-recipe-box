@@ -83,5 +83,24 @@ public class Recipe {
     }
   }
 
+  public void addIngredient(Ingredient ingredient) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO recipes_ingredients (recipe_id, ingredient_id) VALUES (:recipe_id, :ingredient_id);";
+      con.createQuery(sql)
+        .addParameter("recipe_id", this.id)
+        .addParameter("ingredient_id", ingredient.getId())
+        .executeUpdate();
+    }
+  }
+
+  public List<Ingredient> getIngredients() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT ingredients.* FROM recipes JOIN recipes_ingredients ON recipes.id = recipes_ingredients.recipe_id JOIN ingredients ON recipes_ingredients.ingredient_id = ingredients.id WHERE recipes.id = :id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Ingredient.class);
+    }
+  }
+
 
 }

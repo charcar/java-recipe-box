@@ -66,9 +66,15 @@ public class IngredientTest {
   public void delete_removesIngredientFromDatabase_true() {
     Ingredient newIngredient = new Ingredient("Ricolas");
     newIngredient.save();
+    Recipe newRecipe = new Recipe("Cheese balls", "Mash together every cheese");
+    newRecipe.save();
+    newRecipe.addIngredient(newIngredient);
     assertTrue(Ingredient.all().contains(newIngredient));
+    assertTrue(newRecipe.getIngredients().contains(newIngredient));
     newIngredient.delete();
     assertFalse(Ingredient.all().contains(newIngredient));
+    assertFalse(newRecipe.getIngredients().contains(newIngredient));
   }
+
 
 }
