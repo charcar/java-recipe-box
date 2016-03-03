@@ -75,6 +75,15 @@ public class Tag {
     }
   }
 
+  public List<Recipe> getRecipes() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT recipes.* FROM tags JOIN recipes_tags ON tags.id = recipes_tags.tag_id JOIN recipes ON recipes_tags.recipe_id = recipes.id WHERE tags.id = :id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Recipe.class);
+    }
+  }
+
 
 
 }

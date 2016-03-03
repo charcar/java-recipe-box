@@ -87,9 +87,9 @@ public class Recipe {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO recipes_ingredients (recipe_id, ingredient_id) VALUES (:recipe_id, :ingredient_id);";
       con.createQuery(sql)
-        .addParameter("recipe_id", this.id)
-        .addParameter("ingredient_id", ingredient.getId())
-        .executeUpdate();
+      .addParameter("recipe_id", this.id)
+      .addParameter("ingredient_id", ingredient.getId())
+      .executeUpdate();
     }
   }
 
@@ -97,10 +97,30 @@ public class Recipe {
     try (Connection con = DB.sql2o.open()) {
       String sql = "SELECT ingredients.* FROM recipes JOIN recipes_ingredients ON recipes.id = recipes_ingredients.recipe_id JOIN ingredients ON recipes_ingredients.ingredient_id = ingredients.id WHERE recipes.id = :id";
       return con.createQuery(sql)
-        .addParameter("id", this.id)
-        .executeAndFetch(Ingredient.class);
+      .addParameter("id", this.id)
+      .executeAndFetch(Ingredient.class);
     }
   }
+
+  public void addTag(Tag tag) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO recipes_tags (recipe_id, tag_id) VALUES (:recipe_id, :tag_id);";
+      con.createQuery(sql)
+        .addParameter("recipe_id", this.id)
+        .addParameter("tag_id", tag.getId())
+        .executeUpdate();
+    }
+  }
+
+  public List<Tag> getTags() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT tags.* FROM recipes JOIN recipes_tags ON recipes.id = recipes_tags.recipe_id JOIN tags ON recipes_tags.tag_id = tags.id WHERE recipes.id = :id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Tag.class);
+    }
+  }
+
 
 
 }

@@ -54,14 +54,14 @@ public class RecipeTest {
   }
 
   @Test
-  public void find_returnsTagFromDatabase() {
+  public void find_returnsRecipeFromDatabase() {
     Recipe newRecipe = new Recipe("Coffee", "Put the hotdog in the bun and put it in your mouth");
     newRecipe.save();
     assertEquals(newRecipe, Recipe.find(newRecipe.getId()));
   }
 
   @Test
-  public void update_updatesIngredientProperties() {
+  public void update_updatesRecipeProperties() {
     Recipe newRecipe = new Recipe("Coffee", "Put the hotdog in the bun and put it in your mouth");
     newRecipe.save();
     newRecipe.update("Romainian", "Put the bulldog in hottub");
@@ -69,7 +69,7 @@ public class RecipeTest {
   }
 
   @Test
-  public void delete_removesIngredientFromDatabase_true() {
+  public void delete_removesRecipeFromDatabaseTables_true() {
     Recipe newRecipe = new Recipe("Latvian", "cook well");
     newRecipe.save();
     Ingredient newGreedy = new Ingredient("Mozza");

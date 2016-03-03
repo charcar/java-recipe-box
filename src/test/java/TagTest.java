@@ -63,12 +63,17 @@ public class TagTest {
   }
 
   @Test
-  public void delete_removesTagFromDatabase_true() {
+  public void delete_removesTagFromDatabaseTables_true() {
     Tag newTag = new Tag("Latvian");
     newTag.save();
+    Recipe newRecipe = new Recipe("Cheese balls", "Mash together every cheese");
+    newRecipe.save();
+    newRecipe.addTag(newTag);
     assertTrue(Tag.all().contains(newTag));
+    assertTrue(newRecipe.getTags().contains(newTag));
     newTag.delete();
     assertFalse(Tag.all().contains(newTag));
+    assertFalse(newRecipe.getTags().contains(newTag));
   }
 
 }
