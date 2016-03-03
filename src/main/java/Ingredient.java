@@ -36,7 +36,7 @@ public class Ingredient {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tags (name) VALUES (:name)";
+      String sql = "INSERT INTO ingredients (name) VALUES (:name)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .executeUpdate()
