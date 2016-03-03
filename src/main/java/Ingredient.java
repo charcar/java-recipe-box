@@ -1,12 +1,11 @@
 import org.sql2o.*;
 import java.util.List;
 
-
-public class Tag {
+public class Ingredient {
   private String name;
   private int id;
 
-  public Tag (String name) {
+  public Ingredient (String name) {
     this.name = name;
   }
 
@@ -18,20 +17,20 @@ public class Tag {
     return id;
   }
 
-  public static List<Tag> all() {
+  public static List<Ingredient> all() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "Select * FROM tags";
-      return con.createQuery(sql).executeAndFetch(Tag.class);
+      String sql = "Select * FROM ingredients";
+      return con.createQuery(sql).executeAndFetch(Ingredient.class);
     }
   }
 
   @Override
-  public boolean equals(Object otherTag) {
-    if(!(otherTag instanceof Tag)) {
+  public boolean equals(Object otherIngredient) {
+    if(!(otherIngredient instanceof Ingredient)) {
       return false;
     } else {
-      Tag newTag = (Tag) otherTag;
-      return this.getName().equals(newTag.getName()) && this.getId() == newTag.getId();
+      Ingredient newIngredient = (Ingredient) otherIngredient;
+      return this.getName().equals(newIngredient.getName()) && this.getId() == newIngredient.getId();
     }
   }
 
@@ -45,20 +44,20 @@ public class Tag {
     }
   }
 
-  public static Tag find(int id) {
+  public static Ingredient find(int id) {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tags WHERE id=:id;";
-      Tag tag = con.createQuery(sql)
+      String sql = "SELECT * FROM ingredients WHERE id=:id;";
+      Ingredient ingredient = con.createQuery(sql)
         .addParameter("id", id)
-        .executeAndFetchFirst(Tag.class);
-      return tag;
+        .executeAndFetchFirst(Ingredient.class);
+      return ingredient;
     }
   }
 
   public void update(String newName) {
     this.name = newName;
     try (Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE tags SET name = :newName WHERE id = :id;";
+      String sql = "UPDATE ingredients SET name = :newName WHERE id = :id;";
       con.createQuery(sql)
         .addParameter("newName", newName)
         .addParameter("id", id)
@@ -68,13 +67,10 @@ public class Tag {
 
   public void delete() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM tags WHERE id = :id;";
+      String sql = "DELETE FROM ingredients WHERE id = :id;";
       con.createQuery(sql)
         .addParameter("id", this.id)
         .executeUpdate();
+      }
     }
-  }
-
-
-
 }
