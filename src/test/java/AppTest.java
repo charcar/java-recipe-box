@@ -16,9 +16,27 @@ public class AppTest extends FluentTest {
   @ClassRule
   public static ServerRule server = new ServerRule();
 
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
+
   @Test
   public void rootTest() {
-      goTo("http://localhost:4567/");
-      assertThat(pageSource()).contains("");
+    goTo("http://localhost:4567/");
+    assertThat(pageSource()).contains("recipe maker and searching");
   }
+
+  @Test
+  public void ingredientsPageDisplaysNothingAtFirst() {
+    goTo("http://localhost:4567/ingredients");
+    assertThat(pageSource()).contains("Looks like you don't have any ingredients yet!");
+  }
+
+  @Test
+  public void ingredientsPageListsIngredients() {
+    Ingredient newGreedy = new Ingredient("Apple");
+    newGreedy.save();
+    goTo("http://localhost:4567/ingredients");
+    assertThat(pageSource()).contains("Apple");
+  }
+
 }

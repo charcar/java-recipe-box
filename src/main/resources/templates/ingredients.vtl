@@ -1,0 +1,11 @@
+<h3>Ingredients</h3>
+
+#if ($ingredients)
+  <ul>
+  #foreach ($ingredient in $ingredients)
+    <li>$ingredient.getName()</li>
+  </ul>
+  #end
+#else
+  <p>Looks like you don't have any ingredients yet!</p>
+#end
