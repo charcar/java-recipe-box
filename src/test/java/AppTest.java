@@ -48,4 +48,13 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Cherry");
   }
 
+  @Test
+  public void eachIngredientHasIndividualPage() {
+    Ingredient newIngredient = new Ingredient("Salt");
+    newIngredient.save();
+    String ingredientRoute = String.format("http://localhost:4567/ingredients/%d", newIngredient.getId());
+    goTo(ingredientRoute);
+    assertThat(pageSource()).contains("Recipes using Salt");
+  }
+
 }

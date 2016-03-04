@@ -1,0 +1,15 @@
+<h4>Here is the recipe for $recipe.getName()</h4>
+
+<p>$recipe.getInstructions()</p>
+
+#if ($recipe.getIngredients().size() > 0)
+  #foreach ($ingredient in $recipe.getIngredients)
+#end
+
+<form>
+  <h4>Add More Ingredients</h4>
+  #foreach($ingredient in $ingredients)
+    <label><input type="checkbox" value="$ingredient.getId()"> $ingredient.getName()</label>
+  #end
+  <button type="submit" class="btn btn-success">Add Ingredient</button>
+</form>

@@ -3,7 +3,9 @@
 #if ($ingredients)
   <ul>
   #foreach ($ingredient in $ingredients)
-    <li>$ingredient.getName()</li>
+    <li>
+      <a href="/ingredients/$ingredient.getId()">$ingredient.getName()</a>
+    </li>
   #end
   </ul>
 #else

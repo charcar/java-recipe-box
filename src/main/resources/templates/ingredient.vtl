@@ -1,0 +1,23 @@
+<h3>$ingredient.getName()</h3>
+
+#if ($ingredient)
+  <h4>Recipes using $ingredient.getName()</h4>
+      #if ($ingredient.getRecipes().size() > 0)
+        <ul>
+          #foreach ($recipe in $ingredient.getRecipes())
+            <li><a href="recipes/$recipe.getId()">$recipe.getName()</a></li>
+          #end
+        </ul>
+      #else
+        <p>None yet!</p>
+      #end
+#else
+  <p>This ingredient does not exist!</p>
+#end
+
+<p><a href="/">Home</a></p>
+<p><a href="/ingredients">All Ingredients</a></p>
+<p><a href="/ingredients/$ingredient.getId()/edit">Edit</a></p>
+<form action="/ingredients/$ingredient.getId()/delete" method="post">
+  <button type="submit" class="btn btn-danger">Delete</button>
+</form>
